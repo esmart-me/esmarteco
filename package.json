@@ -4,13 +4,18 @@
   "description": "E Smart Electronics LLC - Premium UAE E-Commerce Platform & CMS",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run dev:customer\" \"npm run dev:admin\"",
+    "dev:customer": "vite --port 5173",
+    "dev:admin": "npm --prefix admin run dev",
+    "build:customer": "vite build",
+    "build:admin": "npm --prefix admin run build",
+    "build": "npm run build:customer && npm run build:admin",
     "server": "tsx watch server/src/index.ts",
     "client": "vite",
-    "build": "vite build",
     "start": "node dist/server/index.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.115.0",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",

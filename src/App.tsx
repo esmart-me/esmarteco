@@ -14,15 +14,14 @@ import { CheckoutPage } from './pages/CheckoutPage.js';
 import { OrderTrackingPage } from './pages/OrderTrackingPage.js';
 import { AccountPage } from './pages/AccountPage.js';
 import { ComparePage } from './pages/ComparePage.js';
-import { AdminDashboardPage } from './pages/AdminDashboardPage.js';
 
 export const App: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Sticky Header */}
+      {/* Sticky Customer Header */}
       <Header />
 
-      {/* Main Page Body */}
+      {/* Main Storefront Body */}
       <main className="flex-1 bg-white">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -34,7 +33,6 @@ export const App: React.FC = () => {
           <Route path="/order-confirmation/:orderNumber" element={<OrderTrackingPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/compare" element={<ComparePage />} />
-          <Route path="/admin" element={<AdminDashboardPage />} />
         </Routes>
       </main>
 
@@ -44,7 +42,7 @@ export const App: React.FC = () => {
       {/* Floating UAE WhatsApp Customer Support */}
       <FloatingWhatsApp />
 
-      {/* Footer */}
+      {/* Customer Footer */}
       <Footer />
     </div>
   );

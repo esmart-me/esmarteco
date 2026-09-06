@@ -118,7 +118,6 @@ export const Footer: React.FC = () => {
               <li><a href="#returns" onClick={(e) => { e.preventDefault(); alert("Easy 7-day returns for unopened or defective products accompanied by official UAE Tax Invoice."); }} className="hover:text-white transition-colors">Return & Refund Policy</a></li>
               <li><a href="#privacy" onClick={(e) => { e.preventDefault(); alert("We protect your privacy under UAE Federal Data Protection Regulations."); }} className="hover:text-white transition-colors">Privacy Policy</a></li>
               <li><a href="#terms" onClick={(e) => { e.preventDefault(); alert("Terms & conditions governed by UAE Commercial Transactions Law."); }} className="hover:text-white transition-colors">Terms of Service</a></li>
-              <li><Link to="/admin" className="text-brand-400 hover:text-brand-300 font-medium">Merchant / Admin Login</Link></li>
             </ul>
           </div>
         </div>
