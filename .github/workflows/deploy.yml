@@ -33,10 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build site for GitHub Pages
+      - name: Build site and Admin Panel for GitHub Pages
         run: |
           npm run build:customer
+          npm --prefix admin run build
+          mkdir -p dist/admin
+          cp -r admin/dist/* dist/admin/
           cp dist/index.html dist/404.html
+          cp dist/admin/index.html dist/admin/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

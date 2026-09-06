@@ -4,6 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.NODE_ENV === 'production' ? '/esmarteco/admin/' : '/',
   server: {
     port: 5174,
   },
