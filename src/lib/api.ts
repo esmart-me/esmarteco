@@ -1,9 +1,18 @@
+import { clientStore } from './clientDb.js';
+
 const BASE_URL = '/api';
+const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
 
 export async function apiRequest<T = any>(
   endpoint: string,
   options: RequestInit = {}
-): Promise<{ success: boolean; data?: T; message?: string }> {
+): Promise<{ success: boolean; data?: T; message?: string; [key: string]: any }> {
+  // If hosted on static GitHub Pages, handle immediately via in-memory store
+  if (isGitHubPages) {
+    const res = clientStore.handleRequest(endpoint, options);
+    return Promise.resolve(res);
+  }
+
   const token = localStorage.getItem('esmart_token');
   const adminKey = localStorage.getItem('esmart_admin_key');
 
@@ -26,13 +35,17 @@ export async function apiRequest<T = any>(
       headers,
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      return { success: false, message: data.message || 'Request failed' };
+      // Fallback to clientStore if endpoint error
+      const fallback = clientStore.handleRequest(endpoint, options);
+      return Promise.resolve(fallback);
     }
+
+    const data = await response.json();
     return { success: true, ...data, data };
-  } catch (err: any) {
-    console.error(`API Error on ${endpoint}:`, err);
-    return { success: false, message: err.message || 'Network error' };
+  } catch (err) {
+    // Network fetch failed (e.g. backend server down), fallback gracefully to clientStore
+    const fallback = clientStore.handleRequest(endpoint, options);
+    return Promise.resolve(fallback);
   }
 }
